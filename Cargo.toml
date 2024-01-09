@@ -7,8 +7,10 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.79"
-askama = "0.12.1"
+askama = { version = "0.12.1", features = ["markdown"] }
 axum = "0.7.3"
+axum-macros = "0.4.0"
+serde = { version = "1.0.195", features = ["derive"] }
 tokio = { version = "1.35.1", features = ["full"] }
 tower = "0.4.13"
 tower-http = { version = "0.5.0", features = ["fs"] }
