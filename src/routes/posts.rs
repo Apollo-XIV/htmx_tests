@@ -31,6 +31,9 @@ fn get_posts_metadata() -> Vec<PostMeta> {
 }
 
 #[derive(Deserialize, Debug)]
+struct PostMetas(Vec<PostMeta>);
+
+#[derive(Deserialize, Debug)]
 struct PostMeta {
     id: String,
     title: String,
