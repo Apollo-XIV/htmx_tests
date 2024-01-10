@@ -1,17 +1,17 @@
 posts: [
-    Post(
+    PostMeta(
         id: "an-example-title",
         title: "an example title",
         description: "an abstract",
         date: 1
     ),
-    Post(
+    PostMeta(
         id: "an-example-title",
         title: "an example title",
         description: "an abstract",
         date: 1
     ),
-    Post(
+    PostMeta(
         id: "an-example-title",
         title: "an example title",
         description: "an abstract",
