@@ -1,11 +1,11 @@
-{% extends "base.html" %}
-{% block title %} posts {% endblock %}
-{% block content %}
+<< extends "base.html" >>
+<< block title >> posts << endblock >>
+<< block content >>
 <main class="w-full p-4 flex justify-center place-items-center">
     <div class="max-w-prose flex flex-col gap-4 font-mono text-tasman-200">
         <h1 class="text-3xl text-center font-bold text-accent">Posts</h1>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit voluptatem vero quam rem ratione doloremque placeat iste officiis dolorem praesentium voluptate quis, neque facere atque sequi eius laborum quos aspernatur a porro laudantium! Nesciunt molestiae iure, fugit molestias quas laboriosam esse quidem voluptatum, veritatis perferendis maiores eveniet, magnam adipisci unde.</p>
-        {% for post in posts %}
+        << for post in posts >>
             <a href="/posts/{{post.id}}" class="hover:shadow-lg hover:outline-tasman-50 outline-transparent outline-1 outline transition-all rounded-md p-4 bg-gable-green-800">
                 <h2 class="text-lg font-semibold">
                     {{post.title}}
@@ -13,7 +13,7 @@
                 </h2>
                 <p>{{post.description}}</p>
             </a>
-        {% endfor %}
+        << endfor >>
     </div>
 </main>
-{% endblock %}
+<< endblock >>

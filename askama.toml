@@ -1,0 +1,9 @@
+[general]
+default_syntax = "rsx"
+
+[[syntax]]
+name = "rsx"
+block_start = "<<"
+block_end = ">>"
+comment_start = "<#"
+comment_end ="#>"

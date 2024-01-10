@@ -5,19 +5,19 @@
         <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono"/>
         <!-- Allow any inheriting page to set it's own title -->
-        <title>{% block title %}{{ title }}{% endblock %} | crease.sh</title>
+        <title><< block title >>{{ title }}<< endblock >> | crease.sh</title>
  
         <!-- htmx from the unpkg CDN - your mileage may vary -->
         <script src="https://unpkg.com/htmx.org@1.9.2"></script>
         
         <!-- Allow any inheriting page to extend head with additional assets -->
-        {% block head %}{% endblock %}
+        << block head >><< endblock >>
     </head>
     <body class="bg-tasman-600">
-        {% include "components/navbar.html" %}
+        << include "components/navbar.html" >>
         <div id="content">
             <!-- Inheriting pages will have their content rendered here, similar to app root in React, Angular, etc. -->
-            {% block content %}{% endblock %}
+            << block content >><< endblock >>
         </div>
     </body>
 </html>
