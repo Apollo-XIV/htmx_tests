@@ -1,27 +1,34 @@
 use std::fs::read_to_string;
 
-use askama::Template;
-use axum::{Router, routing::get, response::IntoResponse, extract::Path, http::StatusCode};
-use serde::Deserialize;
 use crate::HtmlTemplate;
+use askama::Template;
+use axum::{extract::Path, http::StatusCode, response::IntoResponse, routing::get, Router};
+use serde::Deserialize;
 
 pub fn router() -> Router {
-    Router::new()
-        .route("/", get(page))
-        .route("/:id",get(post))
+    Router::new().route("/", get(page)).route("/:id", get(post))
 }
 
 async fn page() -> impl IntoResponse {
-    let posts = Posts{ posts: get_posts_metadata()
-        .into_iter()
-        .map(|PostMeta{id, title, description, date}| Post {
-            id: id.clone(),
-            title,
-            description,
-            date,
-            content: fetch_post_content(&id),
-        })
-        .collect()};
+    let posts = Posts {
+        posts: get_posts_metadata()
+            .into_iter()
+            .map(
+                |PostMeta {
+                     id,
+                     title,
+                     description,
+                     date,
+                 }| Post {
+                    id: id.clone(),
+                    title,
+                    description,
+                    date,
+                    content: fetch_post_content(&id),
+                },
+            )
+            .collect(),
+    };
     HtmlTemplate(posts)
 }
 
@@ -31,49 +38,61 @@ fn get_posts_metadata() -> Vec<PostMeta> {
 }
 
 #[derive(Deserialize, Debug)]
-struct PostMetas(Vec<PostMeta>);
-
-#[derive(Deserialize, Debug)]
 struct PostMeta {
     id: String,
     title: String,
     description: String,
-    date: u32
+    date: u32,
 }
 
-fn fetch_post_content(id: &String) -> String { 
+fn fetch_post_content(id: &String) -> String {
     let parse = read_to_string(assets_path(format!("posts/{id}.md")));
     match parse {
         Ok(x) => x,
-        Err(err) => String::from(format!("{}",err))
+        Err(err) => String::from(format!("{}", err)),
     }
 }
+// teensy tiny change :3
 /// Given a post id will dynamically return the page for that post
 async fn post(Path(post_id): Path<String>) -> Result<impl IntoResponse, StatusCode> {
     get_posts_metadata()
         .into_iter()
-        .find_map(|PostMeta{id, title, description, date}| match post_id == id {
-            true => Some(HtmlTemplate(Post{id: id.clone(), title, description, date, content: fetch_post_content(&id)})),
-            false => None
-        }).ok_or(StatusCode::NOT_FOUND)
+        .find_map(
+            |PostMeta {
+                 id,
+                 title,
+                 description,
+                 date,
+             }| match post_id == id {
+                true => Some(HtmlTemplate(Post {
+                    id: id.clone(),
+                    title,
+                    description,
+                    date,
+                    content: fetch_post_content(&id),
+                })),
+                false => None,
+            },
+        )
+        .ok_or(StatusCode::NOT_FOUND)
 
     // HtmlTemplate(post)
 }
 
 #[derive(Template)]
-#[template(path="pages/posts.html")]
-struct Posts{
-    posts: Vec<Post>
+#[template(path = "pages/posts.html")]
+struct Posts {
+    posts: Vec<Post>,
 }
 
 #[derive(Template, Clone)]
-#[template(path="pages/posts/post.html")]
+#[template(path = "pages/posts/post.html")]
 struct Post {
     id: String,
     title: String,
     description: String,
     date: u32,
-    content: String
+    content: String,
 }
 
 fn assets_path(append: String) -> String {
@@ -82,7 +101,7 @@ fn assets_path(append: String) -> String {
 }
 
 #[cfg(test)]
-mod tests{ 
+mod tests {
     use super::*;
     #[test]
     fn scratch() {
