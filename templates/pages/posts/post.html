@@ -3,9 +3,13 @@
 << block content >>
 <main class="w-full p-4 flex justify-center place-items-center">
     <div class="max-w-prose flex flex-col gap-4 font-mono text-tasman-200">
-        <h1 class="text-3xl text-center font-bold text-accent">{{title}}</h1>
+        <a href="/posts" class="hover:underline italic text-sm">...Posts/</a>
+        <div class="w-full border-y-2 outline-white py-4">
+            <h1 class="text-3xl text-center font-bold text-accent">{{title}}</h1>
+            <p>{{description}}</p>
+        
+        </div>
        
-        <p>{{description}}</p>
         <div class="markdown">{{content|markdown}}</div>
         <h2 class="text-lg font-semibold">Lorem ipsum dolor sit amet.</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit voluptatem vero quam rem ratione doloremque placeat iste officiis dolorem praesentium voluptate quis, neque facere atque sequi eius laborum quos aspernatur a porro laudantium! Nesciunt molestiae iure, fugit molestias quas laboriosam esse quidem voluptatum, veritatis perferendis maiores eveniet, magnam adipisci unde.</p>

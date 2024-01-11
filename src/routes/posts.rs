@@ -34,7 +34,12 @@ async fn page() -> impl IntoResponse {
 
 fn get_posts_metadata() -> Vec<PostMeta> {
     let target = read_to_string(assets_path(format!("posts/meta.ron"))).unwrap();
-    ron::from_str(&target).unwrap()
+    ron::from_str::<PostMetas>(&target).unwrap().posts
+}
+
+#[derive(Deserialize, Debug)]
+struct PostMetas {
+    posts: Vec<PostMeta>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -52,7 +57,6 @@ fn fetch_post_content(id: &String) -> String {
         Err(err) => String::from(format!("{}", err)),
     }
 }
-// teensy tiny change :3
 /// Given a post id will dynamically return the page for that post
 async fn post(Path(post_id): Path<String>) -> Result<impl IntoResponse, StatusCode> {
     get_posts_metadata()
